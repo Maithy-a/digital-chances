@@ -1,5 +1,5 @@
 import {
-    snakeCase,
+    pgTable,
     check,
     numeric,
     text,
@@ -12,7 +12,7 @@ import { employees } from "./employees";
 import { profiles } from "./profiles";
 import { sql } from "drizzle-orm/sql";
 
-export const appraisals = snakeCase.table("appraisals", {
+export const appraisals = pgTable("appraisals", {
     id:
         uuid("id")
             .defaultRandom()

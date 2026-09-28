@@ -1,5 +1,5 @@
 import {
-    snakeCase,
+    pgTable,
     date,
     foreignKey,
     index,
@@ -8,68 +8,68 @@ import {
     varchar,
 } from "drizzle-orm/pg-core";
 
-import { profiles } from "./profiles";
-import { departments } from "./departments";
-import { jobs } from "./jobs";
-import { employmentTypeEnum, employeeStatusEnum } from "./enums";
+import {profiles} from "./profiles";
+import {departments} from "./departments";
+import {jobs} from "./jobs";
+import {employmentTypeEnum, employeeStatusEnum} from "./enums";
 
 
-export const employees = snakeCase.table("employees", {
-    id:
-        uuid("id")
-            .defaultRandom()
-            .primaryKey(),
+export const employees = pgTable("employees", {
+        id:
+            uuid("id")
+                .defaultRandom()
+                .primaryKey(),
 
-    employeeId:
-        uuid("profile_id")
-            .notNull()
-            .unique()
-            .references(() => profiles.id, { onDelete: "cascade" }),
+        employeeId:
+            uuid("profile_id")
+                .notNull()
+                .unique()
+                .references(() => profiles.id, {onDelete: "cascade"}),
 
-    employeeNo:
-        varchar("employee_no", { length: 30 })
-            .notNull()
-            .unique(),
+        employeeNo:
+            varchar("employee_no", {length: 30})
+                .notNull()
+                .unique(),
 
-    managerId:
-        uuid("manager_id"),
+        managerId:
+            uuid("manager_id"),
 
-    departmentId:
-        uuid("department_id")
-            .notNull()
-            .references(() => departments.id, { onDelete: "restrict" }),
+        departmentId:
+            uuid("department_id")
+                .notNull()
+                .references(() => departments.id, {onDelete: "restrict"}),
 
-    jobId:
-        uuid("job_id")
-            .notNull()
-            .references(() => jobs.id, { onDelete: "restrict" }),
+        jobId:
+            uuid("job_id")
+                .notNull()
+                .references(() => jobs.id, {onDelete: "restrict"}),
 
-    hireDate:
-        date("hire_date")
-            .notNull()
-            .defaultNow(),
+        hireDate:
+            date("hire_date")
+                .notNull()
+                .defaultNow(),
 
-    employmentType:
-        employmentTypeEnum()
-            .notNull()
-            .default("FULL_TIME"),
+        employmentType:
+            employmentTypeEnum()
+                .notNull()
+                .default("FULL_TIME"),
 
-    employmentStatus:
-        employeeStatusEnum()
-            .notNull()
-            .default("ACTIVE"),
+        employmentStatus:
+            employeeStatusEnum()
+                .notNull()
+                .default("ACTIVE"),
 
-    createdAt:
-        timestamp("created_at")
-            .notNull()
-            .defaultNow(),
+        createdAt:
+            timestamp("created_at")
+                .notNull()
+                .defaultNow(),
 
-    updatedAt:
-        timestamp("updated_at")
-            .notNull()
-            .defaultNow()
-            .$onUpdate(() => new Date()),
-},
+        updatedAt:
+            timestamp("updated_at")
+                .notNull()
+                .defaultNow()
+                .$onUpdate(() => new Date()),
+    },
     (table) => [
         foreignKey({
             columns: [table.managerId],

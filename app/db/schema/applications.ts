@@ -1,5 +1,5 @@
 import {
-    snakeCase,
+    pgTable,
     boolean,
     date,
     integer,
@@ -16,8 +16,7 @@ import { jobs } from "./jobs";
 import { profiles } from "./profiles";
 import { educationLevelsEnum, applicationStatusEnum } from "./enums";
 
-
-export const applications = snakeCase.table("applications", {
+export const applications = pgTable("applications", {
     id:
         uuid("id")
             .defaultRandom()

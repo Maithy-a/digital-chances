@@ -1,8 +1,14 @@
-import { snakeCase, uuid, boolean, timestamp, text } from "drizzle-orm/pg-core";
-import { employees } from "./employees";
-import { appraisals } from "./appraisals";
+import {
+    pgTable,
+    uuid,
+    boolean,
+    timestamp,
+    text
+} from "drizzle-orm/pg-core";
+import {employees} from "./employees";
+import {appraisals} from "./appraisals";
 
-export const promoRecommendations = snakeCase.table("promo_recommendations", {
+export const promoRecommendations = pgTable("promo_recommendations", {
     id:
         uuid("id")
             .defaultRandom()
@@ -10,11 +16,11 @@ export const promoRecommendations = snakeCase.table("promo_recommendations", {
 
     employeeId:
         uuid("employee_id")
-            .references(() => employees.id, { onDelete: 'cascade' }),
+            .references(() => employees.id, {onDelete: 'cascade'}),
 
     appraisalId:
         uuid("appraisal_id")
-            .references(() => appraisals.id, { onDelete: 'cascade' })
+            .references(() => appraisals.id, {onDelete: 'cascade'})
             .unique(),
 
     recommended:
@@ -28,7 +34,7 @@ export const promoRecommendations = snakeCase.table("promo_recommendations", {
 
     approved_by:
         uuid("approved_by")
-            .references(() => employees.id, { onDelete: 'set null' }),
+            .references(() => employees.id, {onDelete: 'set null'}),
 
     createdAt:
         timestamp("created_at")

@@ -1,7 +1,7 @@
 import {
+    pgTable,
     boolean,
     uuid,
-    snakeCase,
     text,
     timestamp,
     index,
@@ -9,8 +9,7 @@ import {
 import { profiles } from "./profiles";
 import { notificationTypeEnum } from "./enums";
 
-
-export const notifications = snakeCase.table("notifications", {
+export const notifications = pgTable("notifications", {
     id:
         uuid("id")
             .primaryKey()

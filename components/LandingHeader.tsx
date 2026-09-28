@@ -17,7 +17,6 @@ export default function LandingHeader() {
                         <p className="font-display font-semibold tracking-tight">Digital Chances</p>
                         <p className="text-xs text-slate-500 font-mono">HR Ledger System</p>
                     </div>
-
                 </div>
 
                 <Link

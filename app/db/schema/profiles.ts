@@ -1,45 +1,44 @@
-
 import {
-    snakeCase,
-    uuid,
+    pgTable,
+    text,
     timestamp,
-    varchar,
+    uuid,
 } from "drizzle-orm/pg-core";
-import { gendersEnum, rolesEnum } from "./enums";
+import {gendersEnum, rolesEnum} from "./enums";
+import {relations} from "drizzle-orm";
+import {user} from "@/app/db/schema/auth/user";
 
-export const profiles = snakeCase.table("profiles", {
-    id:
-        uuid("id")
-            .primaryKey(),
+export const profiles = pgTable("profiles", {
+    id: uuid("id")
+        .defaultRandom()
+        .primaryKey(),
 
-    email:
-        varchar("email", { length: 255 })
-            .notNull()
-            .unique(),
+    authUserId: text("auth_user_id")
+        .notNull()
+        .unique()
+        .references(() => user.id, {
+            onDelete: "cascade",
+        }),
 
-    fullName:
-        varchar("full_name", { length: 255 })
-            .notNull(),
+    role: rolesEnum()
+        .default("EMPLOYEE")
+        .notNull(),
 
-    role:
-        rolesEnum()
-            .notNull()
-            .default("EMPLOYEE"),
+    gender: gendersEnum(),
 
-    gender:
-        gendersEnum(),
-
-    passwordHash:
-        varchar("password_hash", { length: 255 })
-            .notNull(),
-
-    createdAt:
-        timestamp("created_at")
-            .notNull()
-            .defaultNow(),
+    createdAt: timestamp("created_at")
+        .defaultNow()
+        .notNull(),
 
     updatedAt: timestamp("updated_at")
-        .notNull()
         .defaultNow()
+        .notNull()
         .$onUpdate(() => new Date()),
 })
+
+export const profileRelations = relations(profiles, ({one}) => ({
+    user: one(user, {
+        fields: [profiles.authUserId],
+        references: [user.id],
+    }),
+}));

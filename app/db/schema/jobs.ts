@@ -1,7 +1,7 @@
 import {
+    pgTable,
     integer,
     uuid,
-    snakeCase,
     text,
     timestamp,
     varchar,
@@ -13,7 +13,7 @@ import { departments } from "./departments";
 import { profiles } from "./profiles";
 import { educationLevelsEnum, employmentTypeEnum, jobStatusEnum } from "./enums";
 
-export const jobs = snakeCase.table("job_listings", {
+export const jobs = pgTable("job_listings", {
     id:
         uuid("id")
             .defaultRandom()
