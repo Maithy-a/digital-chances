@@ -22,11 +22,10 @@ const scoresheet = [
   {
     label: "CertDocument completeness",
     score: 10,
-  }
-]
+  },
+];
 
 export default async function Home() {
-
   const openJobs = await getOpenJobs();
 
   return (
@@ -43,9 +42,9 @@ export default async function Home() {
               Every candidate scored. Every appraisal on the record.
             </h1>
             <p className="mt-5 text-slate-500 leading-relaxed">
-              Digital Chances evaluates every application and every employee against the
-              same published criteria — a rule-based ledger that replaces guesswork with
-              transparent, weighted scoring.
+              Digital Chances evaluates every application and every employee
+              against the same published criteria — a rule-based ledger that
+              replaces guesswork with transparent, weighted scoring.
             </p>
             <div className="mt-8 flex gap-3">
               <Link
@@ -56,12 +55,11 @@ export default async function Home() {
               </Link>
 
               <Link
-                href="/login"
+                href="/sign-in"
                 className="px-5 py-2.5 border border-line rounded font-medium text-sm text-ink  transition-colors"
               >
                 HR &amp; staff portal
               </Link>
-
             </div>
           </div>
 
@@ -73,9 +71,7 @@ export default async function Home() {
             <ul className="space-y-3">
               {scoresheet.map(({ label, score }) => (
                 <li key={label} className="flex items-center gap-3">
-                  <span className="text-sm flex-1">
-                    {label}
-                  </span>
+                  <span className="text-sm flex-1">{label}</span>
 
                   <span className="font-mono text-xs text-slate w-9 text-right">
                     {score}%
@@ -85,7 +81,8 @@ export default async function Home() {
             </ul>
 
             <p className="mt-5 pt-4 border-t border-line text-xs text-slate">
-              {openJobs.length} Open position{openJobs.length === 1 ? "" : "s"} accepting applications now.
+              {openJobs.length} Open position{openJobs.length === 1 ? "" : "s"}{" "}
+              accepting applications now.
             </p>
           </div>
         </div>
@@ -93,7 +90,8 @@ export default async function Home() {
 
       <footer className="border-t border-line py-6">
         <p className="text-center text-xs text-slate font-mono">
-          Digital Chances · Nairobi · Employee Vetting &amp; Appraisal Management System
+          Digital Chances · Nairobi · Employee Vetting &amp; Appraisal
+          Management System
         </p>
       </footer>
     </main>

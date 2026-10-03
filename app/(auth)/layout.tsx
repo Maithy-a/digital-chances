@@ -2,48 +2,34 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function AuthLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <div className="min-h-screen bg-panel">
-            <header className="border-b border-line">
-                <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <Link
-                        href="/"
-                        className="flex items-center gap-2"
-                    >
-                        <Image
-                            src="/logoipsum.png"
-                            alt="Digital Chances"
-                            width={36}
-                            height={36}
-                        />
-
-                        <div className="flex flex-col">
-                            <p className="font-display font-semibold tracking-tight">
-                                Digital Chances
-                            </p>
-
-                            <p className="text-xs text-slate-500 font-mono">
-                                HR Ledger System
-                            </p>
-                        </div>
-                    </Link>
-
-                    <Link
-                        href="/"
-                        className="text-sm text-slate-500 hover:text-brand transition-colors"
-                    >
-                        Back to home
-                    </Link>
-                </div>
-            </header>
-
-            <main className="flex-1 flex items-center justify-center px-6 py-12">
-                {children}
-            </main>
+  return (
+    <div className="grid min-h-svh lg:grid-cols-2">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
+        <div className="flex justify-center gap-2 md:justify-start">
+          <Link href="/" className="flex items-center gap-2 font-medium">
+            <Image src="/logoipsum.png" alt="logo" width={24} height={24} />
+            Digital Chances Inc.
+          </Link>
         </div>
-    );
+        <div className="flex flex-1 items-center justify-center">
+          <div className="w-full max-w-xs">{children}</div>
+        </div>
+      </div>
+
+      <div className="relative hidden bg-muted lg:block">
+        <Image
+          src="/images/andrew-coelho-aL7SA1ASVdQ-unsplash.jpg"
+          alt="Image"
+          width={300}
+          height={300}
+          priority
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
+      </div>
+    </div>
+  );
 }
